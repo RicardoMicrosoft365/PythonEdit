@@ -2,7 +2,7 @@ import os
 from tkinter import *
 from tkinter.filedialog import askopenfilename, askdirectory
 from moviepy.editor import VideoFileClip, CompositeVideoClip
-from PIL import Image, ImageTk
+
 import ctypes
 import sys
 
@@ -65,6 +65,9 @@ def merge_videos(video1_path, video2_path, output_folder):
     # Salva o vídeo final
     final_video.write_videofile(output_path, codec="libx264")
 
+    # Obtém a duração total dos vídeos em segundos
+    total_duration = max(video1.duration, video2.duration)
+
 def select_video1():
     global video1_path
     video1_path = askopenfilename(title="Selecione o vídeo Principal")
@@ -97,7 +100,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Crie a janela principal
 window = Tk()
-window.geometry('800x600')
+window.geometry('800x400')
 # Defina o caminho relativo para o arquivo de ícone .ico
 icon_path = os.path.join(script_dir, 'icone.ico')
 print('icone', icon_path)
@@ -132,33 +135,16 @@ button_padding = 10
 
 # Crie os balões
 button1 = Button(window, text="Adicionar Vídeo Principal:", command=select_video1, width=balloon_width, font=(font_style, font_size))
-button1.pack(pady=5)
+button1.pack()
 
 button2 = Button(window, text="Adicionar Vídeo Secundário:", command=select_video2, width=balloon_width, font=(font_style, font_size))
-button2.pack(pady=5)
+button2.pack()
 
 button3 = Button(window, text="Selecionar Pasta para salvar:", command=select_output_folder, width=balloon_width, font=(font_style, font_size))
-button3.pack(pady=5)
+button3.pack()
 
 button4 = Button(window, text="Mesclar Vídeos", command=merge_button_clicked, width=balloon_width, font=(font_style, font_size))
-button4.pack(pady=5)
-
-# Carregue a imagem usando a Pillow
-qrcode_image = ImageTk.PhotoImage(Image.open("qrcode.jpg"))
-
-# Crie o rótulo para a imagem
-image_label = Label(window, image=qrcode_image)
-image_label.pack(pady=15)
-
-# Crie o rótulo para o texto
-text_label = Label(window, text="QRCODE PIX DOAÇÃO TIKTOK", font=(font_style, font_size))
-text_label.pack()
-# Crie o rótulo para o texto
-text_label3 = Label(window, text="Caso o Qrcode não funcione:", font=(font_style, font_size))
-text_label3.pack(padx=5)
-# Crie o rótulo para o texto
-text_label2 = Label(window, text="PIX: 41995059996", font=(font_style, font_size))
-text_label2.pack()
+button4.pack()
 
 # Variáveis para armazenar os caminhos dos arquivos selecionados
 video1_path = ""
