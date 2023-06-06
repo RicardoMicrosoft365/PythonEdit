@@ -7,6 +7,9 @@ import ctypes
 import sys
 
 
+## testes de commit 
+
+
 # Crie a janela principal
 window = Tk()
 window.geometry('800x580')
